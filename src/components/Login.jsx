@@ -1,4 +1,4 @@
-import axios from 'axios';
+// import axios from 'axios';
 import { useState } from 'react';
 
 const Login = () => {
@@ -12,16 +12,15 @@ const Login = () => {
 		e.preventDefault();
 		setLoading(true);
 		try {
-			const { data } = await axios.get(
-				'https://jsonplaceholder.typicode.com/users/1'
+			const { data } = await fetch(
+				'https://jsonplaceholdertypicodecom/users/1'
 			);
 			setUser(data);
-		} catch {
+			setLoading(false);
+		} catch (error) {
 			setError(true);
 		}
-		setLoading(false);
 	};
-
 	return (
 		<div className='container'>
 			<span className='user'>{user.name}</span>
@@ -39,13 +38,13 @@ const Login = () => {
 					onChange={e => setPassword(e.target.value)}
 				/>
 				<button disabled={!username || !password} onClick={handleClick}>
-					{loading ? 'please wait' : 'Login'}
+					{loading ? 'Loading...' : 'Login'}
 				</button>
 				<span
 					data-testid='error'
 					style={{ visibility: error ? 'visible' : 'hidden' }}
 				>
-					Something went wrong!
+					Something went wrong
 				</span>
 			</form>
 		</div>
